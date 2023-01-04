@@ -1,0 +1,9 @@
+
+.space-item * {
+  padding: 10px 0px;
+}
+
+.space-item > div {
+  display: flex;
+  justify-content: center;
+}
