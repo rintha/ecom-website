@@ -11,15 +11,13 @@ const Header = (props) => {
         bg="dark"
         variant="dark"
       >
-        <Nav >
-          <Nav.Link  href="/home">HOME</Nav.Link>
+        <Nav>
+          <Nav.Link href="/home">HOME</Nav.Link>
           <Nav.Link eventKey="/store">STORE</Nav.Link>
           <Nav.Link eventKey="/about">ABOUT</Nav.Link>
-          <Nav.Link eventKey="disabled" disabled>
-            <HeaderCartButton />
-          </Nav.Link>
+          <HeaderCartButton onclick={props.onShowCart} />
         </Nav>
-      </Navbar><br></br>
+      </Navbar>
       <div className={classes.generics}>The Generics</div>
     </>
   );
