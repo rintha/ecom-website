@@ -1,30 +1,20 @@
-import React from "react";
+import { React, useContext } from "react";
 import { Button } from "react-bootstrap";
-const cartElements = [
-  {
-    id: 1,
-    title: "Colors",
-    price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-    quantity: 2,
-  },
-  {
-    id: 2,
-    title: "Black and white Colors",
-    price: 50,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-    quantity: 3,
-  },
-  {
-    id: 3,
-    title: "Yellow and Black Colors",
-    price: 70,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-    quantity: 1,
-  },
-];
+import CartContext from "../../store/cart-context";
 
 const Order = (props) => {
+  const CartOrderContext = useContext(CartContext);
+
+  const removeItemHandler = (cartitem) => {
+    CartOrderContext.removeItem(cartitem);
+  };
+
+  let totalamnt = 0;
+  CartOrderContext.items.forEach((item) => {
+    totalamnt = totalamnt + item.quantity * item.price;
+  });
+  totalamnt = totalamnt.toFixed(2);
+  console.log(totalamnt);
   return (
     <>
       <table class="table table-hover text-center p-2">
@@ -36,9 +26,9 @@ const Order = (props) => {
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          {cartElements.map((cartitem) => {
+          {CartOrderContext.items.map((cartitem) => {
             return (
-              <tr key={cartitem.title}>
+              <tr key={cartitem.id}>
                 <td class="pe-2">
                   <img
                     src={`${cartitem.imageUrl}`}
@@ -53,17 +43,21 @@ const Order = (props) => {
 
                 <td>{cartitem.quantity}</td>
                 <td>
-                  <Button variant="danger">REMOVE</Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => removeItemHandler(cartitem)}
+                  >
+                    REMOVE
+                  </Button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <div className="text-end">
-        <p class="fw-bold">
-          Total
-          <span className="text-muted">$0</span>
+      <div className=" fw-bold text-muted text-end">
+        <p>
+          Total :<span class="mx-2 ">${totalamnt}</span>
         </p>
       </div>
       <div class="text-center">

@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import HeaderCartButton from "../Layout/HeaderCartButton";
 import Order from "./Order";
 
-const Canvas = () => {
-  const [show, setShow] = useState(false);
+const Cart = (props) => {
+  const [showCart, setShowCart] = useState(false);
 
   return (
     <>
-      <Button variant="primary" onClick={() => setShow(!show)} className="me-2">
-        Cart
-      </Button>
-      <Offcanvas show={show} onHide={() => setShow(!show)} placement={"end"}>
+      <HeaderCartButton onShowCart={() => setShowCart(!showCart)} />
+      <Offcanvas
+        show={showCart}
+        onHide={() => setShowCart(!showCart)}
+        placement={"end"}
+        {...props}
+      >
         <Offcanvas.Header closeButton>
           <div className="text-center" />
           <Offcanvas.Title>CART</Offcanvas.Title>
@@ -24,4 +27,4 @@ const Canvas = () => {
   );
 };
 
-export default Canvas;
+export default Cart;
