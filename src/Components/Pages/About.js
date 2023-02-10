@@ -5,7 +5,7 @@ const About = () => {
   return (
     <>
       <section className="py-5">
-        <h2 className="text-center">ABOUT</h2>
+        <h2 className="text-center fw-bold">ABOUT</h2>
         <Container>
           <Row
             className="d-flex align-items-center"
