@@ -10,13 +10,13 @@ import Store from "./Components/Pages/Products/Store";
 import ContactUs from "./Components/Pages/ContactUs";
 import ProductsDetails from "./Components/Pages/Products/ProductsDetails";
 import Login from "./Components/Login/Login";
-import AuthContext from "./store/auth-context";
+import AuthContext, { AuthContextProvider } from "./store/auth-context";
 
 function App() {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
 
-  async function addHandler(details) {
+  const addHandler = async (details) => {
     const response = await fetch(
       "https://e-commerce-website-4135f-default-rtdb.asia-southeast1.firebasedatabase.app/details.json",
       {
@@ -29,7 +29,7 @@ function App() {
     );
     const data = await response.json();
     console.log(data);
-  }
+  };
 
   return (
     <CartProvider>
@@ -41,13 +41,11 @@ function App() {
         <Route path="/about">
           <About />
         </Route>
-        <Route path="/home">
+        <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/store">
-          {isLoggedIn && <Store />}
-
-          {!isLoggedIn && <Redirect to="/login" />}
+        <Route path="/store">
+          {isLoggedIn ? <Store /> : <Redirect to="/login" />}
         </Route>
         <Route path="/contact">
           <ContactUs onAddDetails={addHandler} />

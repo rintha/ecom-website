@@ -57,7 +57,7 @@ const Store = (props) => {
   });
 
   return (
-    <section>
+    <section className="m-3">
       <div className="text-center">
         <h2 className="fw-bold mt-3 pb-5">MUSIC</h2>
       </div>

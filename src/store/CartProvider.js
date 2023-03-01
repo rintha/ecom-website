@@ -22,8 +22,12 @@ const CartProvider = (props) => {
   const removeItemFromCartHandler = (item) => {
     let cartItems = [...Items];
     cartItems.forEach((cartitem, index) => {
-      if (cartitem.id === item.id) {
+      if (cartitem.id === item.id && cartitem.quantity <= 1) {
         cartItems.splice(index, 1);
+        SetItems(cartItems);
+      }
+      if (cartitem.id === item.id && cartitem.quantity > 1) {
+        cartitem.quantity = Number(cartitem.quantity) - 1;
         SetItems(cartItems);
       }
     });

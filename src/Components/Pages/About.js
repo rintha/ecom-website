@@ -4,7 +4,7 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 const About = () => {
   return (
     <>
-      <section className="py-5">
+      <section className="py-4">
         <h2 className="text-center fw-bold">ABOUT</h2>
         <Container>
           <Row

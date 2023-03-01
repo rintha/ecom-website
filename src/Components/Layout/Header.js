@@ -1,23 +1,24 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar } from "react-bootstrap/";
 import Cart from "../Cart/Cart";
 import AuthContext from "../../store/auth-context";
 
 const Header = () => {
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
 
-
- const authCtx = useContext(AuthContext);
-  const logoutHandler=(e)=>{
+  const logoutHandler = (e) => {
+    e.preventDefault()
     authCtx.logout();
-  }
+  };
 
   return (
-    <>
+    <React.Fragment>
       <Navbar fixed="top" bg="dark" variant="dark">
-        <Container >
+        <Container>
           <Nav>
-            <Nav.Link className="mx-2" as={Link} to="/home">
+            <Nav.Link className="mx-2" as={Link} to="/">
               HOME
             </Nav.Link>
             <Nav.Link className="mx-2" as={Link} to="/store">
@@ -34,19 +35,26 @@ const Header = () => {
             </Nav.Link>
           </Nav>
         </Container>
-        <div >
-          <button onClick={logoutHandler} type="button" class="btn btn-outline-info mx-2">
-            Logout
-          </button>
-          <Cart />
-        </div>
+        {isLoggedIn && (
+          <div>
+            <button
+              onClick={logoutHandler}
+              type="button"
+              class="btn btn-outline-info mx-2"
+            >
+              Logout
+            </button>
+
+            <Cart />
+          </div>
+        )}
       </Navbar>
       <br />
 
       <div className="text-center m-0">
         <p className="text-bg-secondary py-5 fw-bold h1">The Generics</p>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 export default Header;

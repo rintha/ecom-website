@@ -5,7 +5,9 @@ import { Card, Button } from "react-bootstrap";
 import CartContext from "../../../store/cart-context";
 
 const ItemCard = (props) => {
+
   const cardContext = useContext(CartContext);
+  
   const addItemtoCart = (event) => {
     event.preventDefault();
     cardContext.addItem({ ...props, quantity: Number(1) });

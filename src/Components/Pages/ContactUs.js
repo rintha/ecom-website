@@ -18,6 +18,7 @@ const ContactUs = (props) => {
   }
 
   return (
+    <div className="m-5">
     <Container className="justify-content-center d-flex h-100">
       <Card
         className="shadow-lg mt-5 text-center"
@@ -57,6 +58,7 @@ const ContactUs = (props) => {
         </Card.Body>
       </Card>
     </Container>
+    </div>
   );
 };
 
