@@ -5,9 +5,13 @@ import CartContext from "../../store/cart-context";
 const Order = (props) => {
   const CartOrderContext = useContext(CartContext);
 
-  const removeItemHandler = (cartitem) => {
-    CartOrderContext.removeItem(cartitem);
-  };
+  const removeItemHandler = (cartItem) => {
+    if (cartItem.quantity === 1) {
+      CartOrderContext.removeItem(cartItem.id);
+    } else {
+      CartOrderContext.updateItem(cartItem.id, cartItem.quantity - 1);
+    }
+  };  
 
   let totalamnt = 0;
   CartOrderContext.items.forEach((item) => {
@@ -15,6 +19,11 @@ const Order = (props) => {
   });
   totalamnt = totalamnt.toFixed(2);
   console.log(totalamnt);
+
+  const handlePurchase = () => {
+    alert("Thanks for the Purchase!");
+  };
+
   return (
     <>
       <table class="table table-hover text-center p-2">
@@ -61,7 +70,7 @@ const Order = (props) => {
         </p>
       </div>
       <div class="text-center">
-        <Button variant="primary">PURCHASE</Button>
+        <Button variant="primary" onClick={handlePurchase}>PURCHASE</Button>
       </div>
     </>
   );

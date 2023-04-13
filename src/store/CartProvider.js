@@ -19,25 +19,51 @@ const CartProvider = (props) => {
     }
   };
 
-  const removeItemFromCartHandler = (item) => {
-    let cartItems = [...Items];
-    cartItems.forEach((cartitem, index) => {
-      if (cartitem.id === item.id && cartitem.quantity <= 1) {
-        cartItems.splice(index, 1);
-        SetItems(cartItems);
+  const removeItemFromCartHandler = (id) => {
+    const updatedItems = [...Items];
+    const updatedItemIndex = updatedItems.findIndex((item) => item.id === id);
+  
+    if (updatedItemIndex >= 0) {
+      const updatedItem = { ...updatedItems[updatedItemIndex] };
+      updatedItem.quantity -= 1;
+  
+      if (updatedItem.quantity === 0) {
+        updatedItems.splice(updatedItemIndex, 1);
+      } else {
+        updatedItems[updatedItemIndex] = updatedItem;
       }
-      if (cartitem.id === item.id && cartitem.quantity > 1) {
-        cartitem.quantity = Number(cartitem.quantity) - 1;
-        SetItems(cartItems);
+  
+      SetItems(updatedItems);
+    }
+  };  
+
+  const updateItemHandler = (id, quantity) => {
+    const updatedItems = [...Items];
+    const updatedItemIndex = updatedItems.findIndex((item) => item.id === id);
+  
+    if (updatedItemIndex >= 0) {
+      if (quantity <= 0) {
+        // Remove the item from the cart if the quantity becomes 0 or less
+        updatedItems.splice(updatedItemIndex, 1);
+      } else {
+        const updatedItem = { ...updatedItems[updatedItemIndex] };
+        updatedItem.quantity = quantity;
+        updatedItems[updatedItemIndex] = updatedItem;
       }
-    });
+      SetItems(updatedItems);
+    }
+    else {
+      console.error(`Item with id ${id} not found in cart`);
+    }
   };
+  
 
   const CartProContext = {
     items: Items,
     totalAmount: 0,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    updateItem: updateItemHandler,
   };
   return (
     <CartContext.Provider value={CartProContext}>

@@ -1,11 +1,15 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useLocation } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { Button, Container } from "react-bootstrap";
 
-const ProductDetails = () => {
+const ProductDetails = (props) => {
+  console.log('ProductDetails rendered');
   const params = useParams();
   console.log(params.productId);
+
+  const location = useLocation();
+  const product = location.state.product;
 
   const imageWidth = 300;
   const imageHeight = 300;
@@ -53,8 +57,8 @@ const ProductDetails = () => {
         </div>
 
         <div className="mt-4 mx-5">
-          <h1 className="fw-bold">Title</h1>
-          <p>price</p>
+          <h1 className="fw-bold">{product.title}</h1>
+          <p>{product.price}</p>
           <p>Product Reviews</p>
         </div>
       </div>

@@ -5,9 +5,7 @@ import { Card, Button } from "react-bootstrap";
 import CartContext from "../../../store/cart-context";
 
 const ItemCard = (props) => {
-
   const cardContext = useContext(CartContext);
-  
   const addItemtoCart = (event) => {
     event.preventDefault();
     cardContext.addItem({ ...props, quantity: Number(1) });
@@ -21,7 +19,10 @@ const ItemCard = (props) => {
         className="text-center"
       >
         <Card.Title className="text-center fw-bold ">{props.title}</Card.Title>
-        <Link to={`/store/${props.id}`} className={classes.ViewLink}>
+        <Link
+          to={{ pathname: `/store/${props.id}`, state: { product: props } }}
+          className={classes.ViewLink}
+        >
           <div className={classes.ViewOverlay}>View Product</div>
           <Card.Img className="p-2" src={`${props.imageUrl}`} />
         </Link>

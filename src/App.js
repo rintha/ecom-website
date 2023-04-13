@@ -8,9 +8,9 @@ import About from "./Components/Pages/About";
 import Home from "./Components/Pages/Home/Home";
 import Store from "./Components/Pages/Products/Store";
 import ContactUs from "./Components/Pages/ContactUs";
-import ProductsDetails from "./Components/Pages/Products/ProductsDetails";
+import ProductDetails from "./Components/Pages/Products/ProductsDetails";
 import Login from "./Components/Login/Login";
-import AuthContext, { AuthContextProvider } from "./store/auth-context";
+import AuthContext from "./store/auth-context";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -50,9 +50,8 @@ function App() {
         <Route path="/contact">
           <ContactUs onAddDetails={addHandler} />
         </Route>
-
         <Route path="/store/:productId">
-          <ProductsDetails />
+          <ProductDetails />
         </Route>
       </Switch>
       <Footer />
